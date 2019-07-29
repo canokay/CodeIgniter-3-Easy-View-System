@@ -18,8 +18,27 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+
+	public $project = "";
+	public $category = "";
+	
+	public function __construct()
 	{
-		$this->load->view('welcome_message');
+		parent::__construct();
+		$this->project = "welcome";
+		$this->category = "welcome_page";
+	}
+
+
+	public function welcome_message()
+	{
+		$context=array(
+			"title"					=>	"Welcome to CodeIgniter",
+			"project" 				=> 	$this->project,
+			"category" 				=>	$this->category,
+			"view" 					=>  $this->router->fetch_method(),
+			"view_header_include" 	=>	"welcome_header",
+		);
+		$this->load->view("$this->project/base",$context);
 	}
 }
